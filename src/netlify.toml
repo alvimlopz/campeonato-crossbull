@@ -1,4 +1,8 @@
+[build]
+  command = "ng build --configuration production"
+  publish = "dist/campeonato-crossbull"
+
 [[plugins]]
   package = "@netlify/angular-runtime"
   [plugins.inputs]
-  enabled = false
+  skip = true
