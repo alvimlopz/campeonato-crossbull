@@ -1,0 +1,239 @@
+@import url('https://fonts.googleapis.com/css2?family=Keania+One&display=swap');
+
+// RESPONSIVIDADE GERAL PARA CELULARES
+@media (max-width: 768px) {
+  .hero-title-sombreado {
+    font-size: 2.4rem;
+    line-height: 1.2;
+    padding: 0 10px;
+  }
+
+  .hero-logo-central {
+    width: 100px;
+  }
+
+  .container.leaderboard-container {
+    padding: 1rem;
+    margin-top: 20px;
+  }
+
+  .filtro-label {
+    font-size: 0.9rem;
+  }
+
+  select.form-select {
+    font-size: 0.9rem;
+  }
+
+  .imagem-lateral {
+    max-width: 90%;
+    margin: 0 auto;
+  }
+
+  .imagem-decorativa-container {
+    justify-content: center;
+  }
+
+  .table {
+    font-size: 0.8rem;
+  }
+
+  .footer {
+    font-size: 0.75rem;
+    padding: 15px 10px;
+  }
+}
+
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: #332D2D;
+  font-family: 'Segoe UI', sans-serif;
+  color: #ffffff;
+  overflow-x: hidden;
+}
+
+/* HERO COM BACKGROUND DA IMAGEM */
+.hero {
+  background: url('/capeao.png') no-repeat center center;
+  background-size: cover;
+  padding: 40px 20px; // evita conteúdo colado na borda
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  text-align: center;
+}
+
+.hero-fade {
+  position: relative;
+  width: 100%;
+  height: 80px;
+  background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 0%, #332D2D 100%);
+  margin-top: -80px;
+  z-index: 1;
+}
+
+
+.hero-content {
+  text-align: center;
+  z-index: 2;
+  padding: 0 1rem;
+}
+
+.hero-logo-central {
+  width: 150px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .hero-title-sombreado {
+    font-size: 3rem;
+  }
+
+  .hero-logo-central {
+    width: 120px;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero-title-sombreado {
+    font-size: 2.2rem;
+    padding: 0 10px;
+  }
+
+  .hero-logo-central {
+    width: 100px;
+  }
+}
+
+.hero-title-sombreado {
+  font-family: 'Keania One', cursive;
+  font-size: 4rem;
+  color: #FF0000;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin: 0 auto;
+  text-shadow: 2px 2px 8px rgba(0, 0, 0, 0.7);
+  word-break: break-word;
+  white-space: normal;
+  text-align: center;
+}
+
+/* CONTAINER PRINCIPAL */
+.container.leaderboard-container {
+  background-color: rgba(97, 1, 2, 0.85);
+  padding: 2rem;
+  margin-top: 40px;
+  border-radius: 12px;
+  box-shadow: 0 0 20px rgba(255, 0, 0, 0.3);
+  backdrop-filter: blur(4px);
+  z-index: 10;
+  position: relative;
+  max-width: 100%;
+}
+
+/* FILTROS */
+.filtro-label {
+  font-weight: bold;
+  color: #ffffff;
+  display: block;
+  margin-bottom: 5px;
+}
+
+select.form-select {
+  background-color: #000;
+  color: #fff;
+  border: 1px solid #fff;
+  width: 100%;
+}
+
+/* TABELA */
+.table {
+  width: 100%;
+  color: #ffffff;
+
+  thead {
+    background-color: rgba(48, 0, 0, 0.9);
+    font-weight: bold;
+  }
+
+  td, th {
+    background-color: transparent !important;
+    color: #ffffff !important;
+    border-color: #fff !important;
+  }
+}
+
+/* ALERTA */
+.alert-warning {
+  background-color: #8b0000;
+  color: #ffffff;
+  border: none;
+}
+
+/* BODY OVERWRITE */
+body {
+  background-color: #332D2D !important;
+}
+
+/* FOOTER */
+.footer {
+  background-color: #1f1f1f;
+  color: #ccc;
+  text-align: center;
+  padding: 20px 0;
+  font-size: 0.9rem;
+  margin-top: 60px;
+  border-top: 1px solid #444;
+  width: 100%;
+}
+
+.footer-content {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 1rem;
+}
+
+/* WRAPPER GERAL */
+.main-wrapper {
+  background-color: #332D2D;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* IMAGEM DECORATIVA */
+.imagem-decorativa-container {
+  position: relative;
+  width: 100%;
+  background-color: transparent;
+  display: flex;
+  justify-content: flex-start;
+  align-items: flex-end;
+  margin-top: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+.imagem-lateral {
+  max-width: 100%;
+  height: auto;
+  z-index: 2;
+  margin: 0;
+}
+
+.barra-transparente {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 120px;
+  width: 100%;
+  background-color: rgba(140, 48, 48, 0.8); // cor 8C3030 com transparência
+  z-index: 1;
+  pointer-events: none;
+}
+

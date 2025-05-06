@@ -1,0 +1,76 @@
+<!-- leaderboard.component.html -->
+<div class="main-wrapper">
+<!-- Topo com fundo escuro e imagem -->
+<header class="hero">
+  <div class="hero-content">
+    <img src="/logo.png" alt="Logo Bull" class="hero-logo-central" />
+    <h1 class="hero-title-sombreado">BEM VINDOS ATLETAS AO BULL GAMES.</h1>
+  </div>
+</header>
+<div class="hero-fade"></div>
+
+
+<!-- Container principal -->
+<div class="container mt-4 leaderboard-container">
+  <!-- Filtros -->
+  <div class="row mb-4">
+    <div class="col-md-6">
+      <label class="form-label filtro-label">Filtrar por Prova:</label>
+      <select class="form-select filtro-select" [(ngModel)]="provaSelecionada" (change)="filtrar()">
+       
+        <option *ngFor="let prova of provasDisponiveis" [value]="prova">{{ prova }}</option>
+      </select>
+    </div>
+
+    <div class="col-md-6">
+      <label class="form-label filtro-label">Filtrar por Categoria:</label>
+      <select class="form-select filtro-select" [(ngModel)]="categoriaSelecionada" (change)="filtrar()">
+    
+        <option *ngFor="let categoria of categoriasDisponiveis" [value]="categoria">{{ categoria }}</option>
+      </select>
+    </div>
+  </div>
+
+  <!-- Tabela -->
+  <div class="table-responsive">
+    <table class="table custom-table text-center">
+      <thead class="table-header">
+        <tr>
+          <th>#</th>
+          <th>Dupla</th>
+          <th>Prova</th>
+          <th>Tempo</th>
+          <th>Pontos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of dadosFiltrados; index as i">
+          <td>{{ i + 1 }}º</td>
+          <td>{{ item.nome }}</td>
+          <td>{{ provaSelecionada || 'todas' }}</td>
+          <td>{{ provaSelecionada ? item.provas?.[provaSelecionada]?.tempo || '---' : getSomaTempos(item.provas) }}</td>
+          <td>{{ provaSelecionada ? item.provas?.[provaSelecionada]?.pontuacao || '---' : getSomaPontos(item.provas) }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- Imagem decorativa com barra vermelha -->
+<!-- Seção decorativa abaixo da tabela -->
+<div class="imagem-decorativa-container">
+  <img src="/semfundo.png" alt="Atletas levantando peso" class="imagem-lateral" />
+  <div class="barra-transparente"></div>
+</div>
+
+
+  <div *ngIf="dadosFiltrados.length === 0" class="alert alert-warning text-center mt-4">
+    Nenhum resultado encontrado com os filtros aplicados.
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="footer-content">
+    &copy; 2025 Bull Games - Todos os direitos reservados.
+  </div>
+</footer>
+</div>
