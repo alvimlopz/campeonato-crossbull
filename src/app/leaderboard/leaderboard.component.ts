@@ -5,7 +5,6 @@ import { Firestore, collection } from '@angular/fire/firestore';
 import { collectionData } from '@angular/fire/firestore';
 import { NgZone } from '@angular/core';
 
-
 import { atletaConverter } from '../atleta.converter';
 import { Atleta } from '../model/Atleta';
 
@@ -20,15 +19,13 @@ export class LeaderboardComponent implements OnInit {
   private firestore: Firestore = inject(Firestore);
   private ngZone: NgZone = inject(NgZone);
 
-  
-
   dados: Atleta[] = [];
   dadosFiltrados: Atleta[] = [];
 
   provasDisponiveis: string[] = [];
   categoriasDisponiveis: string[] = [];
 
-  provaSelecionada: string = 'prova 1';
+  provaSelecionada: string = '';
   categoriaSelecionada: string = 'Iniciante masculino';
 
   ngOnInit(): void {
@@ -55,8 +52,13 @@ export class LeaderboardComponent implements OnInit {
           categoriasSet.add(atleta.categoria);
         });
 
-        this.provasDisponiveis = Array.from(provasSet);
+        const provasOrdenadas = Array.from(provasSet).sort((a, b) => a.localeCompare(b));
+        this.provasDisponiveis = ['Total', ...provasOrdenadas];
         this.categoriasDisponiveis = Array.from(categoriasSet);
+
+        // Definir os valores padrão após as opções estarem disponíveis
+        this.provaSelecionada = 'Total';
+        this.categoriaSelecionada = 'Iniciante masculino';
 
         this.filtrar();
       });
@@ -65,57 +67,51 @@ export class LeaderboardComponent implements OnInit {
 
   getSomaPontos(provas: { [key: string]: { tempo: string; pontuacao: number } } | undefined): number {
     if (!provas) return 0;
-  
     return Object.values(provas)
       .map(p => p.pontuacao || 0)
       .reduce((acc, curr) => acc + curr, 0);
   }
-  
 
   getSomaTempos(provas: { [key: string]: { tempo: string; pontuacao: number } } | undefined): string {
     if (!provas) return '---';
-  
+
     let totalSegundos = 0;
-  
+
     Object.values(provas).forEach(prova => {
       if (prova.tempo && prova.tempo.includes(':')) {
         const [min, seg] = prova.tempo.split(':').map(Number);
         totalSegundos += (min * 60) + seg;
       }
     });
-  
+
     const minutosTotais = Math.floor(totalSegundos / 60);
     const segundosRestantes = totalSegundos % 60;
-  
     const segundosFormatado = segundosRestantes < 10 ? `0${segundosRestantes}` : segundosRestantes;
-  
+
     return `${minutosTotais}:${segundosFormatado}`;
   }
-  
-  
 
   filtrar(): void {
     this.dadosFiltrados = this.dados
       .filter(atleta => {
-        const provaExiste = this.provaSelecionada
-          ? atleta.provas && atleta.provas[this.provaSelecionada]
-          : true;
         const categoriaConfere = this.categoriaSelecionada
           ? atleta.categoria === this.categoriaSelecionada
           : true;
+
+        if (this.provaSelecionada === 'Total') return categoriaConfere;
+
+        const provaExiste = atleta.provas && atleta.provas[this.provaSelecionada];
         return provaExiste && categoriaConfere;
       })
       .sort((a, b) => {
-        const pontosA = this.provaSelecionada
-          ? a.provas?.[this.provaSelecionada]?.pontuacao || 0
-          : this.getSomaPontos(a.provas);
-        const pontosB = this.provaSelecionada
-          ? b.provas?.[this.provaSelecionada]?.pontuacao || 0
-          : this.getSomaPontos(b.provas);
+        const pontosA = this.provaSelecionada === 'Total'
+          ? this.getSomaPontos(a.provas)
+          : a.provas?.[this.provaSelecionada]?.pontuacao || 0;
+        const pontosB = this.provaSelecionada === 'Total'
+          ? this.getSomaPontos(b.provas)
+          : b.provas?.[this.provaSelecionada]?.pontuacao || 0;
+
         return pontosB - pontosA;
       });
   }
-
-
-  
 }

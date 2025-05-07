@@ -17,9 +17,8 @@
     <div class="col-md-6">
       <label class="form-label filtro-label">Filtrar por Prova:</label>
       <select class="form-select filtro-select" [(ngModel)]="provaSelecionada" (change)="filtrar()">
-       
         <option *ngFor="let prova of provasDisponiveis" [value]="prova">{{ prova }}</option>
-      </select>
+      </select>      
     </div>
 
     <div class="col-md-6">
@@ -37,7 +36,14 @@
       <thead class="table-header">
         <tr>
           <th>#</th>
-          <th>Dupla</th>
+          <th>
+            {{
+              categoriaSelecionada === 'Scale feminino' || categoriaSelecionada === 'Scale masculino'
+                ? 'Atleta'
+                : 'Dupla'
+            }}
+          </th>
+          
           <th>Prova</th>
           <th>Tempo</th>
           <th>Pontos</th>
@@ -48,8 +54,21 @@
           <td>{{ i + 1 }}º</td>
           <td>{{ item.nome }}</td>
           <td>{{ provaSelecionada || 'todas' }}</td>
-          <td>{{ provaSelecionada ? item.provas?.[provaSelecionada]?.tempo || '---' : getSomaTempos(item.provas) }}</td>
-          <td>{{ provaSelecionada ? item.provas?.[provaSelecionada]?.pontuacao || '---' : getSomaPontos(item.provas) }}</td>
+          <td>
+            {{
+              provaSelecionada === 'Total'
+                ? getSomaTempos(item.provas)
+                : item.provas?.[provaSelecionada]?.tempo || '---'
+            }}
+          </td>
+          <td>
+            {{
+              provaSelecionada === 'Total'
+                ? getSomaPontos(item.provas)
+                : item.provas?.[provaSelecionada]?.pontuacao || '---'
+            }}
+          </td>
+          
         </tr>
       </tbody>
     </table>
