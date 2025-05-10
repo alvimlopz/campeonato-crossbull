@@ -116,8 +116,8 @@
       </button>
     </div>
 
-    <button class="btn btn-primary" (click)="validarCodigo()">Entrar</button>
-    <button class="btn btn-link text-light mt-2" (click)="mostrarModalSenha = false">Cancelar</button>
+    <button class="btn btn-primary w-100" (click)="validarCodigo()">Entrar</button>
+    <button class="btn btn-link text-light mt-2 w-100" (click)="mostrarModalSenha = false">Cancelar</button>
 
     <div *ngIf="erroCodigo" class="text-danger mt-2">{{ erroCodigo }}</div>
   </div>
@@ -132,17 +132,6 @@
   </div>
 </div>
 
-<div class="input-group">
-  <input
-    [type]="mostrarCodigo ? 'text' : 'password'"
-    [(ngModel)]="codigoDigitado"
-    class="form-control mt-2 mb-2"
-    placeholder="Digite o código"
-  />
-  <button type="button" class="btn btn-outline-secondary mt-2 mb-2" (click)="alternarVisibilidadeCodigo()">
-    <i class="bi" [ngClass]="mostrarCodigo ? 'bi-eye-slash' : 'bi-eye'"></i>
-  </button>
-</div>
 
 
 <footer class="footer">
