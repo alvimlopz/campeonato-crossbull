@@ -9,6 +9,18 @@
 </header>
 <div class="hero-fade"></div>
 
+<div class="text-center mt-2">
+  <button class="btn btn-outline-light btn-sm px-3 py-1" (click)="abrirModalSenha()">
+    Calculadora de Pontuação 🔒
+  </button>
+</div>
+
+<div class="text-center mt-2">
+  <button class="btn btn-outline-light btn-sm px-3 py-1" [routerLink]="['/agenda']">
+  Agenda das Provas 🗓️
+</button>
+</div>
+
 
 <!-- Container principal -->
 <div class="container mt-4 leaderboard-container">
@@ -87,9 +99,56 @@
   </div>
 </div>
 
+<!-- 🔒 MODAL DE CÓDIGO -->
+<div class="modal-backdrop" *ngIf="mostrarModalSenha">
+  <div class="modal-content-box">
+    <h4>Digite o código de acesso</h4>
+
+    <div class="input-group mt-2 mb-2">
+      <input
+        [type]="mostrarCodigo ? 'text' : 'password'"
+        [(ngModel)]="codigoDigitado"
+        class="form-control"
+        placeholder="Digite o código"
+      />
+      <button type="button" class="btn btn-outline-secondary" (click)="alternarVisibilidadeCodigo()">
+        <i class="bi" [ngClass]="mostrarCodigo ? 'bi-eye-slash' : 'bi-eye'"></i>
+      </button>
+    </div>
+
+    <button class="btn btn-primary" (click)="validarCodigo()">Entrar</button>
+    <button class="btn btn-link text-light mt-2" (click)="mostrarModalSenha = false">Cancelar</button>
+
+    <div *ngIf="erroCodigo" class="text-danger mt-2">{{ erroCodigo }}</div>
+  </div>
+</div>
+
+
+<!-- Modal Pontuação -->
+<div class="modal-backdrop" *ngIf="mostrarModalPontuacao">
+  <div class="modal-content-box">
+    <button class="btn btn-danger float-end" (click)="fecharModalPontuacao()">Fechar ✖</button>
+    <app-pontuacao></app-pontuacao>
+  </div>
+</div>
+
+<div class="input-group">
+  <input
+    [type]="mostrarCodigo ? 'text' : 'password'"
+    [(ngModel)]="codigoDigitado"
+    class="form-control mt-2 mb-2"
+    placeholder="Digite o código"
+  />
+  <button type="button" class="btn btn-outline-secondary mt-2 mb-2" (click)="alternarVisibilidadeCodigo()">
+    <i class="bi" [ngClass]="mostrarCodigo ? 'bi-eye-slash' : 'bi-eye'"></i>
+  </button>
+</div>
+
+
 <footer class="footer">
   <div class="footer-content">
     &copy; 2025 Bull Games - Todos os direitos reservados.
   </div>
 </footer>
+
 </div>

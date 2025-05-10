@@ -1,0 +1,6 @@
+<div class="container mt-5 text-center">
+  <h3>Digite o código de acesso</h3>
+  <input type="text" [(ngModel)]="codigo" class="form-control w-50 m-auto" placeholder="Código" />
+  <button class="btn btn-primary mt-3" (click)="entrar()">Entrar</button>
+  <p *ngIf="erro" class="text-danger mt-2">{{ erro }}</p>
+</div>

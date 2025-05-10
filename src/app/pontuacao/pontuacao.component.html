@@ -1,0 +1,22 @@
+<div class="container mt-4 text-center">
+  <h2>Calculadora de Pontuação</h2>
+
+  <div class="form-group my-3">
+    <label>Tempo:</label>
+    <div class="d-flex justify-content-center gap-2">
+      <input type="number" [(ngModel)]="minutos" placeholder="min" class="form-control w-auto" />
+      <span>:</span>
+      <input type="number" [(ngModel)]="segundos" placeholder="s" class="form-control w-auto" />
+    </div>
+  </div>
+
+  <div class="d-flex justify-content-center gap-3 mt-3">
+    <button class="btn btn-primary" (click)="calcularPontuacao()">Calcular</button>
+    <button class="btn btn-outline-secondary" (click)="limparCampos()">Limpar</button>
+  </div>
+
+  <div *ngIf="pontuacao !== null" class="mt-4 fs-4">
+    <hr />
+    <strong>Pontuação:</strong> {{ pontuacao }}
+  </div>
+</div>

@@ -7,11 +7,13 @@ import { NgZone } from '@angular/core';
 
 import { atletaConverter } from '../atleta.converter';
 import { Atleta } from '../model/Atleta';
+import { RouterModule } from '@angular/router';
+import { PontuacaoComponent } from '../pontuacao/pontuacao.component';
 
 @Component({
   selector: 'app-leaderboard',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RouterModule, PontuacaoComponent],
   templateUrl: './leaderboard.component.html',
   styleUrl: './leaderboard.component.scss'
 })
@@ -27,6 +29,54 @@ export class LeaderboardComponent implements OnInit {
 
   provaSelecionada: string = '';
   categoriaSelecionada: string = 'Iniciante masculino';
+
+
+mostrarCodigo = false;
+
+alternarVisibilidadeCodigo() {
+  this.mostrarCodigo = !this.mostrarCodigo;
+}
+
+
+
+codigoDigitado = '';
+
+
+codigo: string = '';
+erroCodigo: string = '';
+mostrarModalSenha: boolean = false;
+mostrarModalPontuacao: boolean = false;
+
+
+
+abrirModalSenha() {
+  this.codigoDigitado = '';
+  this.erroCodigo = '';
+  this.mostrarModalSenha = true;
+}
+
+validarCodigo() {
+  if (this.codigoDigitado === '534228') {
+    this.mostrarModalSenha = false;
+    this.mostrarModalPontuacao = true;
+    this.erroCodigo = '';
+  } else {
+    this.erroCodigo = 'Código inválido!';
+  }
+}
+
+
+
+
+
+abrirModalPontuacao() {
+  this.mostrarModalPontuacao = true;
+}
+
+fecharModalPontuacao() {
+  this.mostrarModalPontuacao = false;
+}
+
 
   ngOnInit(): void {
     this.carregarDados();
