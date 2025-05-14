@@ -14,6 +14,11 @@ export class PontuacaoComponent {
   segundos: number = 0;
   pontuacao: number | null = null;
 
+  pesoPR: number = 0;
+pontuacaoPR: number | null = null;
+
+pesoMaximoReferencia = 200;
+
   calcularPontuacao(): void {
   const totalSegundos = this.minutos * 60 + this.segundos;
 
@@ -30,6 +35,8 @@ export class PontuacaoComponent {
     9: 200,
     10: 100
   };
+
+  
 
   // Se for abaixo de 1 minuto, recebe 100
   if (totalSegundos <= 60) {
@@ -49,12 +56,52 @@ export class PontuacaoComponent {
   this.pontuacao = Math.round(pontosInterpolados);
 }
 
+roundsCompletos: number = 0;
+shutterRunParcial: number = 0;
+powerCleanParcial: number = 0;
+pontuacaoRounds: number | null = null;
 
+// Pontuação total máxima por 1 round completo (ajustável)
+pontosPorRound = 100;
+
+calcularPontuacaoRounds(): void {
+  const movimentosPorRound = 6 + 20; // 26 movimentos totais
+
+  const totalCompletos = this.roundsCompletos * movimentosPorRound;
+  const totalParcial = Math.min(this.shutterRunParcial, 6) + Math.min(this.powerCleanParcial, 20);
+  const totalMovimentos = totalCompletos + totalParcial;
+
+  const pontuacaoPorMovimento = this.pontosPorRound / movimentosPorRound;
+  this.pontuacaoRounds = Math.round(pontuacaoPorMovimento * totalMovimentos);
+}
+
+devilPressQuantidade: number = 0;
+pontuacaoTotalComDevilPress: number | null = null;
+
+calcularPontuacaoComDevilPress(): void {
+  const basePontuacao = this.pontuacao ?? 0; // se não tiver calculado tempo ainda, considera 0
+  const devilPress = this.devilPressQuantidade ?? 0;
+
+  this.pontuacaoTotalComDevilPress = basePontuacao + devilPress;
+}
 
 limparCampos(): void {
   this.minutos = 0;
   this.segundos = 0;
   this.pontuacao = null;
+  this.pesoPR = 0;
+  this.pontuacaoPR = null;
+}
+
+
+calcularPontuacaoPR(): void {
+  if (this.pesoPR <= 0) {
+    this.pontuacaoPR = 0;
+    return;
+  }
+
+  const proporcao = Math.min(this.pesoPR / this.pesoMaximoReferencia, 1);
+  this.pontuacaoPR = Math.round(proporcao * 1000);
 }
 
 

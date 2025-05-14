@@ -1,4 +1,28 @@
-.container {
-  max-width: 400px;
-  margin: auto;
+.pontuacao-modal-container {
+  max-width: 100%;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+  color: #fff; // <-- movido pra fora (evita warning)
+
+  @media (min-width: 576px) {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+}
+
+.pontuacao-section {
+  border-top: 1px solid #555;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.tempo-input {
+  width: 80px;
+}
+
+input[type="number"] {
+  color: #fff; // <-- fora do bloco & agora
+  background-color: #222;
+  border: 1px solid #555;
 }
